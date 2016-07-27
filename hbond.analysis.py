@@ -75,9 +75,13 @@ count = 0
 while start_traj <= end_traj:
     ffprint('Loading trajectory %s' %(start_traj))
     u.load_new('%sproduction.%s/production.%s.dcd' %(traj_loc,start_traj,start_traj))
+
+# Loop through all the trajectories to calculate 'Time (ns)' from each frame continuously  
     t0 = nSteps * 0.002
     t = [t0 + (ts.frame-1) * 0.002 for ts in u.trajectory]
     nSteps += len(u.trajectory)
+# Loop through all residue pair selections, calculate the Hydrogen Bond distances and angles for all pairs
+# Write time (ns), distance, and angle into an output file named: system.sel[i][0].results.dat
     for i in range(nSel):
         out1 = open('%s.%s.results.dat' %(system,sel[i][0]), 'a')
         h_list[i].run()
