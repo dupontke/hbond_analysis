@@ -25,13 +25,6 @@ start_traj = int(sys.argv[3])
 end_traj = int(sys.argv[4])
 system = sys.argv[5]
 
-# SELECTIONS FOR HYDROGEN BOND ANALYSIS
-#selection1_type = 'both'
-#detect_hydrogens = 'distance'
-#start = 'None'
-#stop = 'None'
-#step = 'None'
-
 nSel = len(sel)
 
 flush = sys.stdout.flush
@@ -63,7 +56,6 @@ def summary(nSteps):
 
 u = MDAnalysis.Universe(pdb)
 h_list = []
-table_list = []
 for i in range(nSel):
     if sel[i][0] != sel[i-1][0] or i == 0:
         os.mkdir('%s' %(sel[i][0]))
@@ -90,8 +82,6 @@ while start_traj <= end_traj:
         out1 = open('%s.%s.results.dat' %(system,sel[i][1]), 'a')
         h_list[i].run()
         htimeseries = h_list[i].timeseries     
-        donor_set = set(['ARG77:HE','ARG77:HH11','ARG77:HH12','ARG77:HH21','ARG77:HH22','ARG50:HE','ARG50:HH11','ARG50:HH12','ARG50:HH21','ARG50:HH22'])
-        accecptor_set = set(['GLU28:OE1','GLU28:OE2','GLU104:OE1','GLU104:OE2','ASP139:OD1','ASP139:OD2','SER49:OG','S2P49:OG','S2P49:O1P','S2P49:O2P','S2P49:O3P','ASP49:OD1','ASP49:OD2'])
 # Generate table needed to write out all information about hbond analysis
 #	h_list[i].generate_table()
 #        htable = h_list[i].table
